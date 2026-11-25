@@ -104,11 +104,30 @@ function encerrarPartida(vencedorTime) {
         sobreviventes: listaSobreviventes,
         killerID: killerID
     });
+	setTimeout(() => {
+    		voltarParaLobbyComTimer(75);
+	}, 8000);
 
-    setTimeout(() => {
-        iniciarSelecaoESorteio();
-    }, 8000);
 }
+
+function voltarParaLobbyComTimer(segundos) {
+    pongAssento1 = null;
+    pongAssento2 = null;
+
+    if (jogadores.length < 2) {
+        estadoJogo = "ESPERA";
+        timerAtual = 0;
+        broadcast({ tipo: "VOLTAR_ESPERA" });
+        return;
+    }
+
+    estadoJogo = "ESPERA";
+    timerAtual = segundos; // 75 segundos = 1:15!
+    broadcast({ tipo: "VOLTAR_ESPERA" });
+    broadcast({ tipo: "TIMER", valor: timerAtual, estado: "ESPERA", total: jogadores.length });
+    console.log("Todos voltaram ao Lobby! Proxima partida em " + segundos + "s.");
+}
+
 
 function iniciarSelecaoESorteio() {
     if (jogadores.length < 2) {
