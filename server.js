@@ -57,8 +57,6 @@ setInterval(() => {
         if (jogadores.length >= 2) {
             if (timerAtual <= 0) timerAtual = 40;
             timerAtual--;
-            broadcast({ tipo: "TIMER", valor: timerAtual, estado: "ESPERA", total: jogadores.length });
-
             if (timerAtual <= 0) {
                 pongAssento1 = null;
                 pongAssento2 = null;
